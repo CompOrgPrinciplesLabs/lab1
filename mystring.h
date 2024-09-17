@@ -50,6 +50,27 @@ public:
 
     // Очищення стрічки
     void clear();
+    friend bool operator==(const my_str_t& str1, const my_str_t& str2);
+    friend bool operator!=(const my_str_t& str1, const my_str_t& str2);
+    friend bool operator> (const my_str_t& str1, const my_str_t& str2);
+    friend bool operator>=(const my_str_t& str1, const my_str_t& str2);
+    friend bool operator< (const my_str_t& str1, const my_str_t& str2);
+    friend bool operator<=(const my_str_t& str1, const my_str_t& str2);
+
+    // Оператори порівняння для C-стрічки
+    friend bool operator==(const my_str_t& str1, const char* cstr2);
+    friend bool operator!=(const my_str_t& str1, const char* cstr2);
+    friend bool operator> (const my_str_t& str1, const char* cstr2);
+    friend bool operator>=(const my_str_t& str1, const char* cstr2);
+    friend bool operator< (const my_str_t& str1, const char* cstr2);
+    friend bool operator<=(const my_str_t& str1, const char* cstr2);
+
+    friend bool operator==(const char* cstr1, const my_str_t& str2);
+    friend bool operator!=(const char* cstr1, const my_str_t& str2);
+    friend bool operator> (const char* cstr1, const my_str_t& str2);
+    friend bool operator>=(const char* cstr1, const my_str_t& str2);
+    friend bool operator< (const char* cstr1, const my_str_t& str2);
+    friend bool operator<=(const char* cstr1, const my_str_t& str2);
 };
 
 #endif
