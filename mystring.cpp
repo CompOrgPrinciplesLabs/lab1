@@ -8,28 +8,44 @@
 #include <algorithm>
 
 size_t calc_capacity(size_t size) {
-    return (size+1)*2;
+    return size*2+1 ;
+}
+
+int compare_two_strings(const char* str1, const char* str2) {
+    size_t l1 = std::strlen(str1);
+    size_t l2 = std::strlen(str2);
+    for (size_t i = 0; i < std::min(l1, l2); ++i) {
+        if (str1[i] < str2[i]) {
+            return -1;  // str1 < str2
+        } else if (str1[i] > str2[i]) {
+            return 1;   // str1 > str2
+        }
+    }
+    if (l1 < l2) {
+        return -1;
+    } else if (l1 > l2) {
+        return 1;
+    }
+    return 0; //рівні
 }
 
 my_str_t::my_str_t(size_t size, char initial) {
     capacity_m = calc_capacity(size);
     size_m = size;
-
     data_m = new char[capacity_m];
-
     for (size_t i = 0; i < size; i++) {
         data_m[i] = initial;
     }
+    data_m[size] = '\0';
 }
 my_str_t::my_str_t(const char* cstr) {
-    // capacity_m = strlen(cstr)*2;
     size_m = strlen(cstr);
     capacity_m = calc_capacity(size_m);
-
     data_m = new char[capacity_m];
     for (size_t i = 0; i < size_m; i++) {
         data_m[i] = cstr[i];
     }
+    data_m[size_m] = '\0';
 }
 
 my_str_t::my_str_t(const std::string& str) {
@@ -73,146 +89,137 @@ const char& my_str_t::operator[](size_t idx) const {
 }
 
 bool operator==(const my_str_t& str1, const my_str_t& str2) {
-    if (str1.size_m != str2.size_m) {
-        return false;
-    }
-    for (size_t i = 0; i < str1.size_m; i++) {
-        if (str1.data_m[i]!=str2.data_m[i]) {
-            return false;
-        }
-    }
-    return true;
-}
-bool operator!=(const my_str_t& str1, const my_str_t& str2) {
-    if (str1.size_m == str2.size_m) {
-        return false;
-    }
-    for (size_t i = 0; i < str1.size_m; ++i) {
-        if (str1.data_m[i] != str2.data_m[i]) {
-            return true;
-        }
+    int rez = compare_two_strings(str1.data_m, str2.data_m);
+    if (rez == 0) {
+        return true;
     }
     return false;
 }
+
+bool operator!=(const my_str_t& str1, const my_str_t& str2) {
+    int rez = compare_two_strings(str1.data_m, str2.data_m);
+    if (rez == 0) {
+        return false;
+    }
+    return true;
+}
+
 bool operator> (const my_str_t& str1, const my_str_t& str2) {
-    return str1.size_m > str2.size_m;
+    int rez = compare_two_strings(str1.data_m, str2.data_m);
+    if (rez == 1) {
+        return true;
+    }
+    return false;
 }
+
 bool operator>=(const my_str_t& str1, const my_str_t& str2) {
-    return str1.size_m >= str2.size_m;
+    int rez = compare_two_strings(str1.data_m, str2.data_m);
+    if (rez == 0 || rez == 1) {
+        return true;
+    }
+    return false;
 }
+
 bool operator< (const my_str_t& str1, const my_str_t& str2) {
-    return str1.size_m < str2.size_m;
+    int rez = compare_two_strings(str1.data_m, str2.data_m);
+    if (rez == -1) {
+        return true;
+    }
+    return false;
 }
 bool operator<=(const my_str_t& str1, const my_str_t& str2) {
-    return str1.size_m <= str2.size_m;
+    int rez = compare_two_strings(str1.data_m, str2.data_m);
+    if (rez == 0 || rez == -1) {
+        return true;
+    }
+    return false;
 }
 // //! Same for the const char*
 bool operator==(const my_str_t& str1, const char* cstr2) {
-    size_t cstr_length = std::strlen(cstr2);
-    if (str1.size_m != cstr_length) {
-        return false;
+    int rez = compare_two_strings(str1.data_m, cstr2);
+    if (rez == 0) {
+        return true;
     }
-    for (size_t i = 0; i < str1.size_m; ++i) {
-        if (str1.data_m[i] != cstr2[i]) {
-            return false;
-        }
-    }
-    return true;
+    return false;
 }
 
 bool operator!=(const my_str_t& str1, const char* cstr2) {
-    size_t cstr_length = std::strlen(cstr2);
-    if (str1.size_m == cstr_length) {
+    int rez = compare_two_strings(str1.data_m, cstr2);
+    if (rez == 0) {
         return false;
     }
-    for (size_t i = 0; i < str1.size_m; ++i) {
-        if (str1.data_m[i] != cstr2[i]) {
-            return true;
-        }
+    return true;
+}
+
+bool operator> (const my_str_t& str1, const char* cstr2) {
+    int rez = compare_two_strings(str1.data_m, cstr2);
+    if (rez == 1) {
+        return true;
+    }
+    return false;
+}
+bool operator>=(const my_str_t& str1, const char* cstr2) {
+    int rez = compare_two_strings(str1.data_m, cstr2);
+    if (rez == 0||rez == 1) {
+        return true;
+    }
+    return false;
+}
+bool operator< (const my_str_t& str1, const char* cstr2) {
+    int rez = compare_two_strings(str1.data_m, cstr2);
+    if (rez == -1) {
+        return true;
+    }
+    return false;
+}
+bool operator<=(const my_str_t& str1, const char* cstr2) {
+    int rez = compare_two_strings(str1.data_m, cstr2);
+    if (rez == 0||rez == -1) {
+        return true;
     }
     return false;
 }
 
-bool operator> (const my_str_t& str1, const char* cstr2) {
-    return str1.size_m > strlen(cstr2);
-}
-bool operator>=(const my_str_t& str1, const char* cstr2) {
-    return str1.size_m >= strlen(cstr2);
-}
-bool operator< (const my_str_t& str1, const char* cstr2) {
-    return str1.size_m < strlen(cstr2);
-}
-bool operator<=(const my_str_t& str1, const char* cstr2) {
-    return str1.size_m <= strlen(cstr2);
-}
 bool operator==(const char* cstr1, const my_str_t& str2) {
-    if (std::strlen(cstr1) != str2.size_m) {
-        return false;
-    }
-    for (size_t i = 0; i < str2.size_m; ++i) {
-        if (cstr1[i] != str2[i]) {
-            return false;
-        }
-    }
-    return true;
-}
-bool operator!=(const char* cstr1, const my_str_t& str2) {
-    if (std::strlen(cstr1) != str2.size_m) {
+    int rez = compare_two_strings(cstr1, str2.data_m);
+    if (rez == 0) {
         return true;
-    }
-    for (size_t i = 0; i < str2.size_m; ++i) {
-        if (cstr1[i] != str2[i]) {
-            return true;
-        }
     }
     return false;
 }
-bool operator> (const char* cstr1, const my_str_t& str2) {
-    size_t cstr_length = std::strlen(cstr1);
-    size_t minlength = std::min(cstr_length, str2.size_m);
-    for (size_t i = 0; i < minlength; ++i) {
-        if (cstr1[i] > str2.data_m[i]) {
-            return true;
-        } else if (cstr1[i] < str2.data_m[i]) {
-            return false;
-        }
+bool operator!=(const char* cstr1, const my_str_t& str2) {
+    int rez = compare_two_strings(cstr1, str2.data_m);
+    if (rez == 0) {
+        return false;
     }
-    return cstr_length > str2.size_m;
+    return true;
+}
+bool operator> (const char* cstr1, const my_str_t& str2) {
+    int rez = compare_two_strings(cstr1, str2.data_m);
+    if (rez == 1) {
+        return true;
+    }
+    return false;
 }
 bool operator>=(const char* cstr1, const my_str_t& str2) {
-    size_t cstr_length = std::strlen(cstr1);
-    size_t minlength = std::min(cstr_length, str2.size_m);
-    for (size_t i = 0; i < minlength; ++i) {
-        if (cstr1[i] > str2.data_m[i]) {
-            return true;
-        } else if (cstr1[i] < str2.data_m[i]) {
-            return false;
-        }
+    int rez = compare_two_strings(cstr1, str2.data_m);
+    if (rez == 0||rez == 1) {
+        return true;
     }
-    return cstr_length >= str2.size_m;
+    return false;
 }
 bool operator< (const char* cstr1, const my_str_t& str2) {
-    size_t cstr_length = std::strlen(cstr1);
-    size_t minlength = std::min(cstr_length, str2.size_m);
-    for (size_t i = 0; i < minlength; ++i) {
-        if (cstr1[i] < str2.data_m[i]) {
-            return true;
-        } else if (cstr1[i] > str2.data_m[i]) {
-            return false;
-        }
+    int rez = compare_two_strings(cstr1, str2.data_m);
+    if (rez == -1) {
+        return true;
     }
-    return cstr_length < str2.size_m;
+    return false;
 }
 bool operator<=(const char* cstr1, const my_str_t& str2) {
-    size_t cstr_length = std::strlen(cstr1);
-    size_t minlength = std::min(cstr_length, str2.size_m);
-    for (size_t i = 0; i < minlength; ++i) {
-        if (cstr1[i] < str2.data_m[i]) {
-            return true;
-        } else if (cstr1[i] > str2.data_m[i]) {
-            return false;
-        }
+    int rez = compare_two_strings(cstr1, str2.data_m);
+    if (rez == 0||rez == -1) {
+        return true;
     }
-    return cstr_length <= str2.size_m;
+    return false;
 }
 
