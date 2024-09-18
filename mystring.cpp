@@ -243,10 +243,6 @@ void my_str_t::erase(size_t begin, size_t size) {
 
     const size_t right_size = std::min(size, size_m - begin);
 
-    // if (size > size_m - begin) {
-    //     right_size = size_m - begin;
-    // }
-
     std::memcpy(data_m + begin, data_m + begin + right_size, size_m - begin - right_size);
     size_m = size_m - right_size;
 }
