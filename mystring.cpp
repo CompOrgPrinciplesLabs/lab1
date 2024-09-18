@@ -159,6 +159,22 @@ void my_str_t::resize(size_t new_size, char new_char) {
     data_m[size_m] = '\0';
 }
 
+// author Veronika Bahatyr-Zakharchenko
+my_str_t my_str_t::substr(size_t begin, size_t size) {
+    if (begin > size_m) {
+        throw std::out_of_range("index is out of range");
+    }
+    if (begin + size > size_m) {
+        size = size_m - begin;
+    }
+    my_str_t result(size, ' ');
+    for (size_t i = 0; i < size; ++i) {
+        result[i] = data_m[begin + i];
+    }
+    result[size] = '\0';
+    return result;
+}
+
 // author Vlad Vasylevych
 void my_str_t::shrink_to_fit() {
     char* new_data_m = new char[size_m];
