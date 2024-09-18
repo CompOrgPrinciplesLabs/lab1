@@ -55,6 +55,7 @@ my_str_t::my_str_t(const std::string& str) {
     for (size_t i = 0; i < size_m; i++) {
         data_m[i] = str[i];
     }
+    // std::memcpy(data_m, &str, size_m); // why not?
     data_m[size_m] = '\0';
 }
 
@@ -80,6 +81,20 @@ my_str_t::~my_str_t() {
     delete[] data_m;
 }
 
+void my_str_t::swap(my_str_t& mystr) noexcept{
+    const size_t tmp_size = size_m;
+    const size_t tmp_cap = capacity_m;
+    char* tmp_data_m = data_m;
+
+    size_m = mystr.size_m;
+    capacity_m = mystr.capacity_m;
+    data_m = mystr.data_m;
+
+    mystr.size_m = tmp_size;
+    mystr.capacity_m = tmp_cap;
+    mystr.data_m = tmp_data_m;
+}
+
 char& my_str_t::operator[](size_t idx) {
     return data_m[idx];
 }
@@ -87,6 +102,9 @@ char& my_str_t::operator[](size_t idx) {
 const char& my_str_t::operator[](size_t idx) const {
     return data_m[idx];
 }
+
+
+
 
 bool operator==(const my_str_t& str1, const my_str_t& str2) {
     int rez = compare_two_strings(str1.data_m, str2.data_m);

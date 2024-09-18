@@ -26,6 +26,8 @@ public:
     // Оператор присвоєння
     my_str_t& operator=(const my_str_t& mystr);
 
+    void swap(my_str_t& mystr) noexcept;
+
     // Деструктор
     ~my_str_t();
 
