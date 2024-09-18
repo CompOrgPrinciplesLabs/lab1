@@ -5,6 +5,8 @@
 #include <cstring>
 #include <stdexcept>
 #include <algorithm>
+#include <iostream>
+#include <ostream>
 
 size_t calc_capacity(size_t size) {
     return size*2+1 ;
@@ -187,7 +189,7 @@ void my_str_t::insert(size_t idx, const char *cstr) {
         const size_t new_cap = (size_m + cstr_size) * 2;
         reserve(new_cap);
     }
-    
+
     // insert logic
     std::memmove(data_m + idx + cstr_size, data_m + idx, size_m - idx);
     std::memmove(data_m + idx, cstr, cstr_size);
@@ -195,6 +197,43 @@ void my_str_t::insert(size_t idx, const char *cstr) {
     size_m = size_m + cstr_size;
 }
 
+// author Vlad Vasylevych
+void my_str_t::append(const my_str_t &str) {
+    if (size_m + str.size_m > capacity_m) {
+        const size_t new_cap = (size_m + str.size_m) * 2;
+        reserve(new_cap);
+    }
+
+    std::memcpy(data_m + size_m, str.data_m, str.size_m);
+
+    size_m = size_m + str.size_m;
+}
+
+// author Vlad Vasylevych
+void my_str_t::append(char c) {
+    if (size_m + 1 > capacity_m) {
+        const size_t new_cap = (size_m + 1) * 2;
+        reserve(new_cap);
+    }
+
+    std::memcpy(data_m + size_m, &c, 1);
+
+    size_m = size_m + 1;
+}
+
+// author Vlad Vasylevych
+void my_str_t::append(const char* cstr) {
+    const size_t cstr_size = strlen(cstr);
+
+    if (size_m + cstr_size > capacity_m) {
+        const size_t new_cap = (size_m + cstr_size) * 2;
+        reserve(new_cap);
+    }
+
+    std::memcpy(data_m + size_m, cstr, cstr_size);
+
+    size_m = size_m + cstr_size;
+}
 
 
 char& my_str_t::operator[](size_t idx) {

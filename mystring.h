@@ -69,6 +69,16 @@ public:
     //! Аналогічна оптимізація для C-стрічок
     void insert(size_t idx, const char* cstr);
 
+    //! Додає стрічку чи літеру в кінці стрічки.
+    //! Обробка помилок:
+        //! Не повинні заважати пропагуванню виключення
+        //! std::bad_alloc.
+    void append(const my_str_t& str);
+
+    void append(char c);
+
+    void append(const char* cstr);
+
     friend bool operator==(const my_str_t& str1, const my_str_t& str2);
     friend bool operator!=(const my_str_t& str1, const my_str_t& str2);
     friend bool operator> (const my_str_t& str1, const my_str_t& str2);
