@@ -79,6 +79,15 @@ public:
 
     void append(const char* cstr);
 
+    //! Видаляє size літер, починаючи з індексу begin.
+    //! Літери праворуч від видаленого шматка зсуваються
+    //! на size ліворуч.
+    //! Обробка помилок:
+    //! Якщо begin > size_m -- кидає виключення std::out_of_range.
+    //! Але якщо стрічка містить менше символів для стирання,
+    //! ніж потрібно -- це не помилка, видаляє всі до кінця.
+    void erase(size_t begin, size_t size);
+
     friend bool operator==(const my_str_t& str1, const my_str_t& str2);
     friend bool operator!=(const my_str_t& str1, const my_str_t& str2);
     friend bool operator> (const my_str_t& str1, const my_str_t& str2);
