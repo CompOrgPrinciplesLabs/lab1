@@ -81,6 +81,7 @@ my_str_t::~my_str_t() {
     delete[] data_m;
 }
 
+// author Vlad Vasylevych
 void my_str_t::swap(my_str_t& mystr) noexcept{
     const size_t tmp_size = size_m;
     const size_t tmp_cap = capacity_m;
@@ -94,6 +95,23 @@ void my_str_t::swap(my_str_t& mystr) noexcept{
     mystr.capacity_m = tmp_cap;
     mystr.data_m = tmp_data_m;
 }
+
+// author Vlad Vasylevych
+char &my_str_t::at(size_t idx) {
+    if (idx >= size_m) {
+        throw std::out_of_range("my_str_t::at");
+    }
+    return data_m[idx];
+}
+
+// author Vlad Vasylevych
+const char &my_str_t::at(size_t idx) const{
+    if (idx >= size_m) {
+        throw std::out_of_range("my_str_t::at");
+    }
+    return data_m[idx];
+}
+
 
 char& my_str_t::operator[](size_t idx) {
     return data_m[idx];
