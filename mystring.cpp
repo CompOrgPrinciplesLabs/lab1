@@ -112,6 +112,16 @@ const char &my_str_t::at(size_t idx) const{
     return data_m[idx];
 }
 
+// author Vlad Vasylevych
+void my_str_t::reserve(size_t new_capacity) {
+    if (new_capacity < capacity_m) {
+        return;
+    }
+    char* new_data_m = new char[new_capacity];
+    std::memcpy(new_data_m, data_m, size_m);
+    delete[] data_m;
+}
+
 
 char& my_str_t::operator[](size_t idx) {
     return data_m[idx];
