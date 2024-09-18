@@ -501,3 +501,13 @@ bool operator<=(const char* cstr1, const my_str_t& str2) {
     return false;
 }
 
+// author Kassiia Tserkovna
+std::istream& readline(std::istream& stream, my_str_t& str) {
+    str.clear();
+    char temp;
+    while (stream.peek() != '\n') {
+        stream.get(temp);
+        str.append(temp);
+    }
+    return stream;
+}

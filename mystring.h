@@ -139,6 +139,8 @@ public:
     friend bool operator>=(const char* cstr1, const my_str_t& str2);
     friend bool operator< (const char* cstr1, const my_str_t& str2);
     friend bool operator<=(const char* cstr1, const my_str_t& str2);
+
+    friend std::istream& readline(std::istream& stream, my_str_t& str);
 };
 
 #endif
