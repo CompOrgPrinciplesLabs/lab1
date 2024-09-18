@@ -113,6 +113,11 @@ public:
     size_t find(const std::string& str, size_t idx = 0);
     size_t find(const char* cstr, size_t idx = 0);
 
+    // Author: Kassiia Tserkovna
+    friend std::ostream& operator<<(std::ostream& stream, const my_str_t& str);
+    // Author: Kassiia Tserkovna
+    friend std::istream& operator>>(std::istream& stream, my_str_t& str);
+
     friend bool operator==(const my_str_t& str1, const my_str_t& str2);
     friend bool operator!=(const my_str_t& str1, const my_str_t& str2);
     friend bool operator> (const my_str_t& str1, const my_str_t& str2);

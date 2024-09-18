@@ -343,8 +343,28 @@ const char& my_str_t::operator[](size_t idx) const {
     return data_m[idx];
 }
 
+// author Kassiia Tserkovna
+std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
+    for (size_t i = 0; i < str.size_m; i++) {
+        stream << str[i];
+    }
+    return stream;
+}
 
-
+// author Kassiia Tserkovna
+std::istream& operator>>(std::istream& stream, my_str_t& str){
+    str.clear();
+    char temp;
+    do {
+        stream.get(temp);
+    } while (isspace(temp));
+    str.append(temp);
+    do {
+        stream.get(temp);
+        str.append(temp);
+    } while (!isspace(temp));
+    return stream;
+}
 
 bool operator==(const my_str_t& str1, const my_str_t& str2) {
     int rez = compare_two_strings(str1.data_m, str2.data_m);
