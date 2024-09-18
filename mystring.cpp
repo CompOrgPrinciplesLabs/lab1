@@ -119,6 +119,7 @@ void my_str_t::reserve(size_t new_capacity) {
     char* new_data_m = new char[new_capacity];
     std::memcpy(new_data_m, data_m, size_m);
     delete[] data_m;
+    data_m = new_data_m;
 }
 
 // author Vlad Vasylevych
