@@ -1,5 +1,7 @@
 // This is a personal academic project. Dear PVS-Studio, please check it.
+
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
+
 #include "mystring.h"
 #include <string>
 #include <cstring>
@@ -248,13 +250,18 @@ void my_str_t::erase(size_t begin, size_t size) {
 }
 
 // author Vlad Vasylevych
-size_t my_str_t::size() const {
+size_t my_str_t::size() const noexcept{
     return size_m;
 }
 
 // author Vlad Vasylevych
-size_t my_str_t::capacity() const {
+size_t my_str_t::capacity() const noexcept{
     return capacity_m;
+}
+
+// author Vlad Vasylevych
+const char* my_str_t::c_str() const {
+    return data_m;
 }
 
 

@@ -6,14 +6,14 @@
 
 class my_str_t {
 private:
-    // char* data_m;         // Вказівник на блок пам'яті
-    // size_t capacity_m;    // Розмір блока
-    // size_t size_m;        // Фактичний розмір стрічки
+    char* data_m;         // Вказівник на блок пам'яті
+    size_t capacity_m;    // Розмір блока
+    size_t size_m;        // Фактичний розмір стрічки
 
 public:
-    size_t capacity_m;    // Розмір блока
-    size_t size_m;
-    char* data_m;
+    // size_t capacity_m;    // Розмір блока
+    // size_t size_m;
+    // char* data_m;
     // Конструктор: створює стрічку із 'size' копій літери 'initial'
     my_str_t(size_t size, char initial);
 
@@ -95,6 +95,13 @@ public:
     //! так, то будемо наслідувати його
     size_t size() const noexcept;
     size_t capacity() const noexcept;
+
+    //! Повертає вказівник на С-стрічку, яка відповідає
+    //! цьому об'єкту. Якщо виділяти один зайвий байт,
+    //! як описано в документації на конструтор, то їй
+    //! достатньо зберегти нульовий байт у позиції
+    //! data_m[size_m] і повернути data_m.
+    const char* c_str() const;
 
     friend bool operator==(const my_str_t& str1, const my_str_t& str2);
     friend bool operator!=(const my_str_t& str1, const my_str_t& str2);
