@@ -138,6 +138,11 @@ void my_str_t::clear() {
 
 // author Vlad Vasylevych
 void my_str_t::insert(size_t idx, const my_str_t &str) {
+    // is it possible to insert itself
+    // E.G.
+    // my_str_t a = my_str_t("qwerty");
+    // a.insert(1, a);
+    // meaning we can't use memcpy
     if (idx > size_m) {
         throw std::out_of_range("my_str_t::insert");
     }
@@ -148,8 +153,11 @@ void my_str_t::insert(size_t idx, const my_str_t &str) {
     }
 
     // insert logic
-    char* right_side_str = new char[size_m];
-    std::memcpy(right_side_str, data_m + idx, size_m - idx);
+    char* right_side_str = new char[size_m - idx];
+    std::memmove(right_side_str, data_m + idx, size_m - idx);
+    std::memmove(data_m + idx, str.data_m, str.size_m);
+    std::memmove(data_m + idx + str.size_m, right_side_str, size_m - idx);
+    delete[] right_side_str;
 
 }
 
