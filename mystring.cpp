@@ -247,6 +247,15 @@ void my_str_t::erase(size_t begin, size_t size) {
     size_m = size_m - right_size;
 }
 
+// author Vlad Vasylevych
+size_t my_str_t::size() const {
+    return size_m;
+}
+
+// author Vlad Vasylevych
+size_t my_str_t::capacity() const {
+    return capacity_m;
+}
 
 
 char& my_str_t::operator[](size_t idx) {

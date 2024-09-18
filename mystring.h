@@ -88,6 +88,14 @@ public:
     //! ніж потрібно -- це не помилка, видаляє всі до кінця.
     void erase(size_t begin, size_t size);
 
+    //! Наступні функції повертають розмір стрічки та
+    //! зарезервований блок пам'яті.
+    //! Правильніше б назвати get_size() та get_capacity(),
+    //! але історично в std::string прийнято
+    //! так, то будемо наслідувати його
+    size_t size() const noexcept;
+    size_t capacity() const noexcept;
+
     friend bool operator==(const my_str_t& str1, const my_str_t& str2);
     friend bool operator!=(const my_str_t& str1, const my_str_t& str2);
     friend bool operator> (const my_str_t& str1, const my_str_t& str2);
