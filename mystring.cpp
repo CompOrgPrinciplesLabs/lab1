@@ -116,7 +116,9 @@ void my_str_t::reserve(size_t new_capacity) {
     if (new_capacity < capacity_m) {
         return;
     }
-    char* new_data_m = new char[new_capacity];
+    capacity_m = new_capacity;
+
+    char* new_data_m = new char[capacity_m];
     std::memcpy(new_data_m, data_m, size_m);
     delete[] data_m;
     data_m = new_data_m;
@@ -138,11 +140,6 @@ void my_str_t::clear() {
 
 // author Vlad Vasylevych
 void my_str_t::insert(size_t idx, const my_str_t &str) {
-    // is it possible to insert itself
-    // E.G.
-    // my_str_t a = my_str_t("qwerty");
-    // a.insert(1, a);
-    // meaning we can't use memcpy
     if (idx > size_m) {
         throw std::out_of_range("my_str_t::insert");
     }
@@ -153,13 +150,31 @@ void my_str_t::insert(size_t idx, const my_str_t &str) {
     }
 
     // insert logic
-    char* right_side_str = new char[size_m - idx];
-    std::memmove(right_side_str, data_m + idx, size_m - idx);
+    std::memmove(data_m + idx + str.size_m, data_m + idx, size_m - idx);
     std::memmove(data_m + idx, str.data_m, str.size_m);
-    std::memmove(data_m + idx + str.size_m, right_side_str, size_m - idx);
-    delete[] right_side_str;
+
+    size_m = size_m + str.size_m;
 
 }
+
+// author Vlad Vasylevych
+void my_str_t::insert(size_t idx, char c) {
+    if (idx > size_m) {
+        throw std::out_of_range("my_str_t::insert");
+    }
+
+    if (size_m + 1 > capacity_m) {
+        const size_t new_cap = (size_m + 1) * 2;
+        reserve(new_cap);
+    }
+
+    // insert logic
+    std::memmove(data_m + idx + 1, data_m + idx, size_m - idx);
+    std::memmove(data_m + idx, &c, 1);
+
+    size_m = size_m + 1;
+}
+
 
 
 char& my_str_t::operator[](size_t idx) {

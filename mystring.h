@@ -60,6 +60,12 @@ public:
     //! Якщо idx > size_m -- кидає виключення std::out_of_range
     void insert(size_t idx, const my_str_t& str);
 
+    //! Ця функція -- служить для оптимізації, щоб не
+    //! довелося спочатку створювати із літери c стрічку my_str_t, а
+    //! потім вставляти. Навіть якщо компілятор зробив би це
+    //! автоматично -- це повільно.
+    void insert(size_t idx, char c);
+
     friend bool operator==(const my_str_t& str1, const my_str_t& str2);
     friend bool operator!=(const my_str_t& str1, const my_str_t& str2);
     friend bool operator> (const my_str_t& str1, const my_str_t& str2);
