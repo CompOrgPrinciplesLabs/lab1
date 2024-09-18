@@ -14,6 +14,7 @@ size_t calc_capacity(size_t size) {
     return size*2+1 ;
 }
 
+// author Veronika Bahatyr-Zakharchenko
 int compare_two_strings(const char* str1, const char* str2) {
     size_t l1 = std::strlen(str1);
     size_t l2 = std::strlen(str2);
@@ -45,6 +46,8 @@ my_str_t::my_str_t(size_t size, char initial) {
     }
     data_m[size] = '\0';
 }
+
+// author Veronika Bahatyr-Zakharchenko
 my_str_t::my_str_t(const char* cstr) {
     size_m = strlen(cstr);
     capacity_m = calc_capacity(size_m);
@@ -55,6 +58,7 @@ my_str_t::my_str_t(const char* cstr) {
     data_m[size_m] = '\0';
 }
 
+// author Veronika Bahatyr-Zakharchenko
 my_str_t::my_str_t(const std::string& str) {
     size_m = str.size();
     capacity_m = calc_capacity(size_m);
@@ -66,6 +70,7 @@ my_str_t::my_str_t(const std::string& str) {
     data_m[size_m] = '\0';
 }
 
+// author Veronika Bahatyr-Zakharchenko
 my_str_t::my_str_t(const my_str_t& mystr) {
     size_m = mystr.size_m;
     capacity_m = mystr.capacity_m;
@@ -73,6 +78,7 @@ my_str_t::my_str_t(const my_str_t& mystr) {
     std::memcpy(data_m, mystr.data_m, size_m + 1); // новий блок памʼяті; блок, з якого копіюємо; кількість бітів + терм
 }
 
+// author Veronika Bahatyr-Zakharchenko
 my_str_t& my_str_t::operator=(const my_str_t& mystr) {
     if (this != &mystr) {
         delete[] data_m;
@@ -84,6 +90,7 @@ my_str_t& my_str_t::operator=(const my_str_t& mystr) {
     return *this;
 }
 
+// author Veronika Bahatyr-Zakharchenko
 my_str_t::~my_str_t() {
     delete[] data_m;
 }
@@ -130,6 +137,41 @@ void my_str_t::reserve(size_t new_capacity) {
     std::memcpy(new_data_m, data_m, size_m);
     delete[] data_m;
     data_m = new_data_m;
+}
+
+// author Veronika Bahatyr-Zakharchenko
+void my_str_t::resize(size_t new_size, char new_char) {
+    if (new_size < size_m) {
+        size_m = new_size;
+    } else if (new_size <= capacity_m) {
+        for (size_t i = size_m; i < new_size; ++i) {
+            data_m[i] = new_char;
+        }
+        size_m = new_size;
+    } else {
+        reserve(new_size);
+        for (size_t i = size_m; i < new_size; ++i) {
+            data_m[i] = new_char;
+        }
+        size_m = new_size;
+    }
+    data_m[size_m] = '\0';
+}
+
+// author Veronika Bahatyr-Zakharchenko
+my_str_t my_str_t::substr(size_t begin, size_t size) {
+    if (begin > size_m) {
+        throw std::out_of_range("index is out of range");
+    }
+    if (begin + size > size_m) {
+        size = size_m - begin;
+    }
+    my_str_t result(size, ' ');
+    for (size_t i = 0; i < size; ++i) {
+        result[i] = data_m[begin + i];
+    }
+    result[size] = '\0';
+    return result;
 }
 
 // author Vlad Vasylevych
@@ -334,11 +376,12 @@ size_t my_str_t::find(const char* cstr, size_t idx) {
     return not_found;
 }
 
-
+// author Veronika Bahatyr-Zakharchenko
 char& my_str_t::operator[](size_t idx) {
     return data_m[idx];
 }
 
+// author Veronika Bahatyr-Zakharchenko
 const char& my_str_t::operator[](size_t idx) const {
     return data_m[idx];
 }
@@ -366,6 +409,8 @@ std::istream& operator>>(std::istream& stream, my_str_t& str){
     return stream;
 }
 
+
+// author Veronika Bahatyr-Zakharchenko
 bool operator==(const my_str_t& str1, const my_str_t& str2) {
     int rez = compare_two_strings(str1.data_m, str2.data_m);
     if (rez == 0) {
@@ -374,6 +419,7 @@ bool operator==(const my_str_t& str1, const my_str_t& str2) {
     return false;
 }
 
+// author Veronika Bahatyr-Zakharchenko
 bool operator!=(const my_str_t& str1, const my_str_t& str2) {
     int rez = compare_two_strings(str1.data_m, str2.data_m);
     if (rez == 0) {
@@ -382,6 +428,7 @@ bool operator!=(const my_str_t& str1, const my_str_t& str2) {
     return true;
 }
 
+// author Veronika Bahatyr-Zakharchenko
 bool operator> (const my_str_t& str1, const my_str_t& str2) {
     int rez = compare_two_strings(str1.data_m, str2.data_m);
     if (rez == 1) {
@@ -390,6 +437,7 @@ bool operator> (const my_str_t& str1, const my_str_t& str2) {
     return false;
 }
 
+// author Veronika Bahatyr-Zakharchenko
 bool operator>=(const my_str_t& str1, const my_str_t& str2) {
     int rez = compare_two_strings(str1.data_m, str2.data_m);
     if (rez == 0 || rez == 1) {
@@ -398,6 +446,7 @@ bool operator>=(const my_str_t& str1, const my_str_t& str2) {
     return false;
 }
 
+// author Veronika Bahatyr-Zakharchenko
 bool operator< (const my_str_t& str1, const my_str_t& str2) {
     int rez = compare_two_strings(str1.data_m, str2.data_m);
     if (rez == -1) {
@@ -405,6 +454,8 @@ bool operator< (const my_str_t& str1, const my_str_t& str2) {
     }
     return false;
 }
+
+// author Veronika Bahatyr-Zakharchenko
 bool operator<=(const my_str_t& str1, const my_str_t& str2) {
     int rez = compare_two_strings(str1.data_m, str2.data_m);
     if (rez == 0 || rez == -1) {
@@ -412,7 +463,10 @@ bool operator<=(const my_str_t& str1, const my_str_t& str2) {
     }
     return false;
 }
+
 // //! Same for the const char*
+
+// author Veronika Bahatyr-Zakharchenko
 bool operator==(const my_str_t& str1, const char* cstr2) {
     int rez = compare_two_strings(str1.data_m, cstr2);
     if (rez == 0) {
@@ -421,6 +475,7 @@ bool operator==(const my_str_t& str1, const char* cstr2) {
     return false;
 }
 
+// author Veronika Bahatyr-Zakharchenko
 bool operator!=(const my_str_t& str1, const char* cstr2) {
     int rez = compare_two_strings(str1.data_m, cstr2);
     if (rez == 0) {
@@ -429,6 +484,7 @@ bool operator!=(const my_str_t& str1, const char* cstr2) {
     return true;
 }
 
+// author Veronika Bahatyr-Zakharchenko
 bool operator> (const my_str_t& str1, const char* cstr2) {
     int rez = compare_two_strings(str1.data_m, cstr2);
     if (rez == 1) {
@@ -436,6 +492,8 @@ bool operator> (const my_str_t& str1, const char* cstr2) {
     }
     return false;
 }
+
+// author Veronika Bahatyr-Zakharchenko
 bool operator>=(const my_str_t& str1, const char* cstr2) {
     int rez = compare_two_strings(str1.data_m, cstr2);
     if (rez == 0||rez == 1) {
@@ -443,6 +501,8 @@ bool operator>=(const my_str_t& str1, const char* cstr2) {
     }
     return false;
 }
+
+// author Veronika Bahatyr-Zakharchenko
 bool operator< (const my_str_t& str1, const char* cstr2) {
     int rez = compare_two_strings(str1.data_m, cstr2);
     if (rez == -1) {
@@ -450,6 +510,8 @@ bool operator< (const my_str_t& str1, const char* cstr2) {
     }
     return false;
 }
+
+// author Veronika Bahatyr-Zakharchenko
 bool operator<=(const my_str_t& str1, const char* cstr2) {
     int rez = compare_two_strings(str1.data_m, cstr2);
     if (rez == 0||rez == -1) {
@@ -458,6 +520,7 @@ bool operator<=(const my_str_t& str1, const char* cstr2) {
     return false;
 }
 
+// author Veronika Bahatyr-Zakharchenko
 bool operator==(const char* cstr1, const my_str_t& str2) {
     int rez = compare_two_strings(cstr1, str2.data_m);
     if (rez == 0) {
@@ -465,6 +528,8 @@ bool operator==(const char* cstr1, const my_str_t& str2) {
     }
     return false;
 }
+
+// author Veronika Bahatyr-Zakharchenko
 bool operator!=(const char* cstr1, const my_str_t& str2) {
     int rez = compare_two_strings(cstr1, str2.data_m);
     if (rez == 0) {
@@ -472,6 +537,8 @@ bool operator!=(const char* cstr1, const my_str_t& str2) {
     }
     return true;
 }
+
+// author Veronika Bahatyr-Zakharchenko
 bool operator> (const char* cstr1, const my_str_t& str2) {
     int rez = compare_two_strings(cstr1, str2.data_m);
     if (rez == 1) {
@@ -479,6 +546,8 @@ bool operator> (const char* cstr1, const my_str_t& str2) {
     }
     return false;
 }
+
+// author Veronika Bahatyr-Zakharchenko
 bool operator>=(const char* cstr1, const my_str_t& str2) {
     int rez = compare_two_strings(cstr1, str2.data_m);
     if (rez == 0||rez == 1) {
@@ -486,6 +555,8 @@ bool operator>=(const char* cstr1, const my_str_t& str2) {
     }
     return false;
 }
+
+// author Veronika Bahatyr-Zakharchenko
 bool operator< (const char* cstr1, const my_str_t& str2) {
     int rez = compare_two_strings(cstr1, str2.data_m);
     if (rez == -1) {
@@ -493,6 +564,8 @@ bool operator< (const char* cstr1, const my_str_t& str2) {
     }
     return false;
 }
+
+// author Veronika Bahatyr-Zakharchenko
 bool operator<=(const char* cstr1, const my_str_t& str2) {
     int rez = compare_two_strings(cstr1, str2.data_m);
     if (rez == 0||rez == -1) {
