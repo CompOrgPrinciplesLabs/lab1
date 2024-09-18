@@ -1,6 +1,5 @@
-//
-// // Created by Вероника Багатырь-Захарченко on 12.09.2024.
-// //
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 #include "mystring.h"
 #include <string>
 #include <cstring>
@@ -135,6 +134,24 @@ void my_str_t::clear() {
     size_m = 0;
     delete[] data_m; // not sure I should delete
 }
+
+// author Vlad Vasylevych
+void my_str_t::insert(size_t idx, const my_str_t &str) {
+    if (idx > size_m) {
+        throw std::out_of_range("my_str_t::insert");
+    }
+
+    if (size_m + str.size_m > capacity_m) {
+        const size_t new_cap = (size_m + str.size_m) * 2;
+        reserve(new_cap);
+    }
+
+    // insert logic
+    char* right_side_str = new char[size_m];
+    std::memcpy(right_side_str, data_m + idx, size_m - idx);
+
+}
+
 
 char& my_str_t::operator[](size_t idx) {
     return data_m[idx];

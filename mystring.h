@@ -52,6 +52,14 @@ public:
 
     // Очищення стрічки
     void clear();
+
+    //! Вставляє передану стрічку типу my_str_t, чи літеру,
+    //! чи С-стрічку, починаючи з літери idx,
+    //! зсуваючи літеру з позиції idx і правіше праворуч.
+    //! Обробка помилок:
+    //! Якщо idx > size_m -- кидає виключення std::out_of_range
+    void insert(size_t idx, const my_str_t& str);
+
     friend bool operator==(const my_str_t& str1, const my_str_t& str2);
     friend bool operator!=(const my_str_t& str1, const my_str_t& str2);
     friend bool operator> (const my_str_t& str1, const my_str_t& str2);
