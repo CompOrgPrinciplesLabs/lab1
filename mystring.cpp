@@ -140,10 +140,10 @@ void my_str_t::shrink_to_fit() {
     data_m = new_data_m;
 }
 
-// author Vlad Vasylevych
+// author Kassiia Tserkovna
 void my_str_t::clear() {
     size_m = 0;
-    delete[] data_m; // not sure I should delete
+    shrink_to_fit();
 }
 
 // author Vlad Vasylevych
