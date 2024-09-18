@@ -140,6 +140,25 @@ void my_str_t::reserve(size_t new_capacity) {
     data_m = new_data_m;
 }
 
+// author Veronika Bahatyr-Zakharchenko
+void my_str_t::resize(size_t new_size, char new_char) {
+    if (new_size < size_m) {
+        size_m = new_size;
+    } else if (new_size <= capacity_m) {
+        for (size_t i = size_m; i < new_size; ++i) {
+            data_m[i] = new_char;
+        }
+        size_m = new_size;
+    } else {
+        reserve(new_size);
+        for (size_t i = size_m; i < new_size; ++i) {
+            data_m[i] = new_char;
+        }
+        size_m = new_size;
+    }
+    data_m[size_m] = '\0';
+}
+
 // author Vlad Vasylevych
 void my_str_t::shrink_to_fit() {
     char* new_data_m = new char[size_m];
