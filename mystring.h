@@ -66,6 +66,9 @@ public:
     //! автоматично -- це повільно.
     void insert(size_t idx, char c);
 
+    //! Аналогічна оптимізація для C-стрічок
+    void insert(size_t idx, const char* cstr);
+
     friend bool operator==(const my_str_t& str1, const my_str_t& str2);
     friend bool operator!=(const my_str_t& str1, const my_str_t& str2);
     friend bool operator> (const my_str_t& str1, const my_str_t& str2);

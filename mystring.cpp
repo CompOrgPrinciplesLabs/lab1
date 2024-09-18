@@ -175,6 +175,26 @@ void my_str_t::insert(size_t idx, char c) {
     size_m = size_m + 1;
 }
 
+// author Vlad Vasylevych
+void my_str_t::insert(size_t idx, const char *cstr) {
+    if (idx > size_m) {
+        throw std::out_of_range("my_str_t::insert");
+    }
+
+    const size_t cstr_size = strlen(cstr);
+
+    if (size_m + cstr_size > capacity_m) {
+        const size_t new_cap = (size_m + cstr_size) * 2;
+        reserve(new_cap);
+    }
+    
+    // insert logic
+    std::memmove(data_m + idx + cstr_size, data_m + idx, size_m - idx);
+    std::memmove(data_m + idx, cstr, cstr_size);
+
+    size_m = size_m + cstr_size;
+}
+
 
 
 char& my_str_t::operator[](size_t idx) {
