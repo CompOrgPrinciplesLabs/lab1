@@ -17,16 +17,20 @@ size_t calc_capacity(size_t size) {
 int compare_two_strings(const char* str1, const char* str2) {
     size_t l1 = std::strlen(str1);
     size_t l2 = std::strlen(str2);
-    for (size_t i = 0; i < std::min(l1, l2); ++i) {
+    const size_t min_len = std::min(l1,l2);
+
+    for (size_t i = 0; i < min_len; ++i) {
         if (str1[i] < str2[i]) {
             return -1;  // str1 < str2
-        } else if (str1[i] > str2[i]) {
+        }
+        if (str1[i] > str2[i]) {
             return 1;   // str1 > str2
         }
     }
     if (l1 < l2) {
         return -1;
-    } else if (l1 > l2) {
+    }
+    if (l1 > l2) {
         return 1;
     }
     return 0; //рівні
@@ -185,7 +189,7 @@ void my_str_t::insert(size_t idx, const char *cstr) {
         throw std::out_of_range("my_str_t::insert");
     }
 
-    const size_t cstr_size = strlen(cstr);
+    const size_t cstr_size = std::strlen(cstr);
 
     if (size_m + cstr_size > capacity_m) {
         const size_t new_cap = (size_m + cstr_size) * 2;
@@ -225,7 +229,7 @@ void my_str_t::append(char c) {
 
 // author Vlad Vasylevych
 void my_str_t::append(const char* cstr) {
-    const size_t cstr_size = strlen(cstr);
+    const size_t cstr_size = std::strlen(cstr);
 
     if (size_m + cstr_size > capacity_m) {
         const size_t new_cap = (size_m + cstr_size) * 2;
@@ -262,6 +266,72 @@ size_t my_str_t::capacity() const noexcept{
 // author Vlad Vasylevych
 const char* my_str_t::c_str() const {
     return data_m;
+}
+
+// author Vlad Vasylevych
+size_t my_str_t::find(char c, size_t idx) {
+    if (idx > size_m) {
+        throw std::out_of_range("my_str_t::find");
+    }
+
+    for (size_t i = idx; i < size_m; i++) {
+        if (data_m[i] == c) {
+            return i;
+        }
+    }
+
+    return not_found;
+
+}
+
+// author Vlad Vasylevych
+size_t my_str_t::find(const std::string& s, size_t idx) {
+    if (idx > size_m) {
+        throw std::out_of_range("my_str_t::find");
+    }
+
+    const size_t s_len = s.length();
+
+    for (size_t i = idx; i < size_m - s_len; i++) {
+        bool is_same = true;
+        for (size_t j = 0; j < s_len; j++) {
+            if (data_m[i + j] == s[j]) {
+                continue;
+            }
+            is_same = false;
+            break;
+        }
+        if (is_same == true) {
+            return i;
+        }
+    }
+
+    return not_found;
+}
+
+// author Vlad Vasylevych
+size_t my_str_t::find(const char* cstr, size_t idx) {
+    if (idx > size_m) {
+        throw std::out_of_range("my_str_t::find");
+    }
+
+    const size_t s_len = std::strlen(cstr);
+
+    for (size_t i = idx; i < size_m - s_len; i++) {
+        bool is_same = true;
+        for (size_t j = 0; j < s_len; j++) {
+            if (data_m[i + j] == cstr[j]) {
+                continue;
+            }
+            is_same = false;
+            break;
+        }
+        if (is_same == true) {
+            return i;
+        }
+    }
+
+    return not_found;
 }
 
 

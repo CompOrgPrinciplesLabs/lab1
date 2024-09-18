@@ -103,6 +103,16 @@ public:
     //! data_m[size_m] і повернути data_m.
     const char* c_str() const;
 
+    //! Функції find шукають вказану літеру чи стрічку,
+    //! починаючи із idx. Якщо не знайдено, повертає
+    //! константу my_str_t::not_found
+    //! Обробка помилок:
+    //! Якщо idx > size_m -- кидає виключення std::out_of_range.
+    static constexpr size_t not_found = -1;
+    size_t find(char c, size_t idx = 0);
+    size_t find(const std::string& str, size_t idx = 0);
+    size_t find(const char* cstr, size_t idx = 0);
+
     friend bool operator==(const my_str_t& str1, const my_str_t& str2);
     friend bool operator!=(const my_str_t& str1, const my_str_t& str2);
     friend bool operator> (const my_str_t& str1, const my_str_t& str2);
