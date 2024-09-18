@@ -122,6 +122,13 @@ void my_str_t::reserve(size_t new_capacity) {
     delete[] data_m;
 }
 
+// author Vlad Vasylevych
+void my_str_t::shrink_to_fit() {
+    char* new_data_m = new char[size_m];
+    std::memcpy(new_data_m, data_m, size_m);
+    delete[] data_m;
+    data_m = new_data_m;
+}
 
 char& my_str_t::operator[](size_t idx) {
     return data_m[idx];
