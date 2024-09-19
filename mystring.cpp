@@ -368,6 +368,10 @@ size_t my_str_t::find(const char* cstr, size_t idx) {
         return not_found;
     }
 
+    if (size_m ==0 && s_len == 0) {
+        return 0;
+    }
+
 
     for (size_t i = idx; i <= size_m - s_len; i++) {
         bool is_same = true;
