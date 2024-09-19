@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cassert>
 
+// author Veronika Bahatyr-Zakharchenko
 void testOperators() {
     my_str_t str1("hello");
     my_str_t str2("world");
