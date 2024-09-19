@@ -178,10 +178,12 @@ my_str_t my_str_t::substr(size_t begin, size_t size) {
 
 // author Vlad Vasylevych
 void my_str_t::shrink_to_fit() {
-    char* new_data_m = new char[size_m];
+    char* new_data_m = new char[size_m+1];
     std::memcpy(new_data_m, data_m, size_m);
     delete[] data_m;
     data_m = new_data_m;
+    capacity_m = size_m+1;
+    data_m[size_m] = '\0';
 }
 
 // author Kassiia Tserkovna
@@ -295,6 +297,7 @@ void my_str_t::erase(size_t begin, size_t size) {
 
     std::memcpy(data_m + begin, data_m + begin + right_size, size_m - begin - right_size);
     size_m = size_m - right_size;
+    data_m[size_m] = '\0';
 }
 
 // author Vlad Vasylevych
