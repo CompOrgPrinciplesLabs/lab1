@@ -126,13 +126,6 @@ public:
     //! Обробка помилок:
     //! Якщо begin > size_m -- кидає виключення std::out_of_range.
     my_str_t substr(size_t begin, size_t size);
-
-    // Author: Kassiia Tserkovna
-    friend std::ostream& operator<<(std::ostream& stream, const my_str_t& str);
-    // Author: Kassiia Tserkovna
-    friend std::istream& operator>>(std::istream& stream, my_str_t& str);
-
-    friend std::istream& readline(std::istream& stream, my_str_t& str);
 };
 
 bool operator==(const my_str_t& str1, const my_str_t& str2);
@@ -159,4 +152,8 @@ my_str_t operator+(const my_str_t& str1, const my_str_t& str2);
 my_str_t operator+(const char* cstr1, const my_str_t& str2);
 my_str_t operator+(const my_str_t& str1, const char* cstr2);
 my_str_t operator*(const my_str_t& str, size_t num);
+
+std::ostream& operator<<(std::ostream& stream, const my_str_t& str);
+std::istream& operator>>(std::istream& stream, my_str_t& str);
+std::istream& readline(std::istream& stream, my_str_t& str);
 #endif
