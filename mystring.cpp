@@ -22,7 +22,7 @@ int compare_two_strings(const char* str1, const char* str2, const size_t str1_si
     // const size_t min_len = std::min(str1_size, str2_size)-1;
     size_t i = 0;
     while (str1[i] != '\0' && str2[i] != '\0') {
-        if (str1[i] < str2[i]) {±
+        if (str1[i] < str2[i]) {
             return -1;  // str1 < str2
         }
         if (str1[i] > str2[i]) {
