@@ -339,7 +339,7 @@ size_t my_str_t::find(const std::string& s, size_t idx) {
 
     const size_t s_len = s.length();
 
-    for (size_t i = idx; i < size_m - s_len; i++) {
+    for (size_t i = idx; i <= size_m - s_len; i++) {
         bool is_same = true;
         for (size_t j = 0; j < s_len; j++) {
             if (data_m[i + j] == s[j]) {
