@@ -369,7 +369,7 @@ size_t my_str_t::find(const char* cstr, size_t idx) {
     }
 
     if (size_m ==0 && s_len == 0) {
-        return 0;
+        return not_found;
     }
 
 
