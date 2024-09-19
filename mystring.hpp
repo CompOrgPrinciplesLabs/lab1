@@ -127,7 +127,6 @@ public:
     //! Якщо begin > size_m -- кидає виключення std::out_of_range.
     my_str_t substr(size_t begin, size_t size);
 
-
     // Author: Kassiia Tserkovna
     friend std::ostream& operator<<(std::ostream& stream, const my_str_t& str);
     // Author: Kassiia Tserkovna

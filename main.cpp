@@ -33,6 +33,7 @@ void testOperators() {
     std::cout << "Operator tests passed.\n" << std::endl;
 }
 
+
 // author Kassiia Tserkovna
 void testConstructors() {
     std::cout << "Initiating constructor tests..." << std::endl;

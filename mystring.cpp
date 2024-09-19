@@ -235,8 +235,6 @@ my_str_t my_str_t::substr(size_t begin, size_t size) {
     return result;
 }
 
-
-
 // author Vlad Vasylevych
 void my_str_t::shrink_to_fit() {
     char* new_data_m = new char[size_m+1];

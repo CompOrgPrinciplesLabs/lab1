@@ -7,3 +7,4 @@ add_executable(lab1
         mystring.h
         mystring.cpp
         main.cpp)
+
