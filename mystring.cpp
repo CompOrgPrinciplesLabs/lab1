@@ -364,6 +364,11 @@ size_t my_str_t::find(const char* cstr, size_t idx) {
 
     const size_t s_len = std::strlen(cstr);
 
+    if (size_m < s_len) {
+        return not_found;
+    }
+
+
     for (size_t i = idx; i <= size_m - s_len; i++) {
         bool is_same = true;
         for (size_t j = 0; j < s_len; j++) {
