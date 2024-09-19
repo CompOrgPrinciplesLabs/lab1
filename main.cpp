@@ -27,6 +27,9 @@ void testOperators() {
     assert(str1 >= str4);
     assert(str1 >= str1);
     assert(str2 >= str1);
+    my_str_t str9("hello");
+    my_str_t rez = str9*3;
+    assert(rez == "hellohellohello");
     std::cout << "Operator tests passed.\n" << std::endl;
 }
 
@@ -93,7 +96,6 @@ void testFunctionality() {
          && str1.find(std::string("h"), 11)==-1);
     std::cout << "find() works." << std::endl;
 
-
     std::cout << "Functionality tests passed.\n" << std::endl;
 }
 
@@ -102,5 +104,7 @@ int main() {
     testConstructors();
     testOperators();
     testFunctionality();
+    size_t dhdfb = 0;
+    const int *a = new int[5];
     return 0;
 }

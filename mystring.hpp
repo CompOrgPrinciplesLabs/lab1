@@ -26,6 +26,11 @@ public:
     // Оператор присвоєння
     my_str_t& operator=(const my_str_t& mystr);
 
+    my_str_t& operator+=(const my_str_t& mystr);
+    my_str_t& operator+=(const char* cstr1);
+    my_str_t& operator+=(char c);
+    my_str_t& operator*=(const size_t num);
+
     void swap(my_str_t& mystr) noexcept;
 
     // Деструктор
@@ -122,34 +127,37 @@ public:
     //! Якщо begin > size_m -- кидає виключення std::out_of_range.
     my_str_t substr(size_t begin, size_t size);
 
+
     // Author: Kassiia Tserkovna
     friend std::ostream& operator<<(std::ostream& stream, const my_str_t& str);
     // Author: Kassiia Tserkovna
     friend std::istream& operator>>(std::istream& stream, my_str_t& str);
 
-    friend bool operator==(const my_str_t& str1, const my_str_t& str2);
-    friend bool operator!=(const my_str_t& str1, const my_str_t& str2);
-    friend bool operator> (const my_str_t& str1, const my_str_t& str2);
-    friend bool operator>=(const my_str_t& str1, const my_str_t& str2);
-    friend bool operator< (const my_str_t& str1, const my_str_t& str2);
-    friend bool operator<=(const my_str_t& str1, const my_str_t& str2);
-
-    // Оператори порівняння для C-стрічки
-    friend bool operator==(const my_str_t& str1, const char* cstr2);
-    friend bool operator!=(const my_str_t& str1, const char* cstr2);
-    friend bool operator> (const my_str_t& str1, const char* cstr2);
-    friend bool operator>=(const my_str_t& str1, const char* cstr2);
-    friend bool operator< (const my_str_t& str1, const char* cstr2);
-    friend bool operator<=(const my_str_t& str1, const char* cstr2);
-
-    friend bool operator==(const char* cstr1, const my_str_t& str2);
-    friend bool operator!=(const char* cstr1, const my_str_t& str2);
-    friend bool operator> (const char* cstr1, const my_str_t& str2);
-    friend bool operator>=(const char* cstr1, const my_str_t& str2);
-    friend bool operator< (const char* cstr1, const my_str_t& str2);
-    friend bool operator<=(const char* cstr1, const my_str_t& str2);
-
     friend std::istream& readline(std::istream& stream, my_str_t& str);
 };
 
+bool operator==(const my_str_t& str1, const my_str_t& str2);
+bool operator!=(const my_str_t& str1, const my_str_t& str2);
+bool operator> (const my_str_t& str1, const my_str_t& str2);
+bool operator>=(const my_str_t& str1, const my_str_t& str2);
+bool operator< (const my_str_t& str1, const my_str_t& str2);
+bool operator<=(const my_str_t& str1, const my_str_t& str2);
+
+bool operator==(const my_str_t& str1, const char* cstr2);
+bool operator!=(const my_str_t& str1, const char* cstr2);
+bool operator> (const my_str_t& str1, const char* cstr2);
+bool operator>=(const my_str_t& str1, const char* cstr2);
+bool operator< (const my_str_t& str1, const char* cstr2);
+bool operator<=(const my_str_t& str1, const char* cstr2);
+
+bool operator==(const char* cstr1, const my_str_t& str2);
+bool operator!=(const char* cstr1, const my_str_t& str2);
+bool operator> (const char* cstr1, const my_str_t& str2);
+bool operator>=(const char* cstr1, const my_str_t& str2);
+bool operator< (const char* cstr1, const my_str_t& str2);
+bool operator<=(const char* cstr1, const my_str_t& str2);
+my_str_t operator+(const my_str_t& str1, const my_str_t& str2);
+my_str_t operator+(const char* cstr1, const my_str_t& str2);
+my_str_t operator+(const my_str_t& str1, const char* cstr2);
+my_str_t operator*(const my_str_t& str, size_t num);
 #endif
