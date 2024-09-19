@@ -10,6 +10,7 @@
 #include <iostream>
 #include <ostream>
 
+// author Kassiia Tserkovna
 size_t calc_capacity(size_t size) {
     return size*2+1 ;
 }
@@ -37,6 +38,7 @@ int compare_two_strings(const char* str1, const char* str2) {
     return 0; //рівні
 }
 
+// author Kassiia Tserkovna
 my_str_t::my_str_t(size_t size, char initial) {
     capacity_m = calc_capacity(size);
     size_m = size;
