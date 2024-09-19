@@ -19,15 +19,16 @@ size_t calc_capacity(size_t size) {
 int compare_two_strings(const char* str1, const char* str2, const size_t str1_size, const size_t str2_size) {
     // size_t l1 = std::strlen(str1);
     // size_t l2 = std::strlen(str2);
-    const size_t min_len = std::min(str1_size, str2_size)-1;
-
-    for (size_t i = 0; i < min_len; ++i) {
-        if (str1[i] < str2[i]) {
+    // const size_t min_len = std::min(str1_size, str2_size)-1;
+    size_t i = 0;
+    while (str1[i] != '\0' && str2[i] != '\0') {
+        if (str1[i] < str2[i]) {±
             return -1;  // str1 < str2
         }
         if (str1[i] > str2[i]) {
             return 1;   // str1 > str2
         }
+        i++;
     }
     if (str1_size < str2_size) {
         return -1;
