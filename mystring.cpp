@@ -422,12 +422,15 @@ std::istream& operator>>(std::istream& stream, my_str_t& str){
     char temp;
     do {
         stream.get(temp);
+        if (stream.peek()==EOF) {
+            return stream;
+        }
     } while (isspace(temp));
     str.append(temp);
     do {
         stream.get(temp);
         str.append(temp);
-    } while (!isspace(temp));
+    } while (!isspace(temp) && stream.peek() != EOF);
     return stream;
 }
 
