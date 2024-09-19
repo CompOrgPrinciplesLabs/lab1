@@ -6,14 +6,14 @@
 
 class my_str_t {
 private:
-    char* data_m;         // Вказівник на блок пам'яті
-    size_t capacity_m;    // Розмір блока
-    size_t size_m;        // Фактичний розмір стрічки
+    // char* data_m;         // Вказівник на блок пам'яті
+    // size_t capacity_m;    // Розмір блока
+    // size_t size_m;        // Фактичний розмір стрічки
 
 public:
-    // size_t capacity_m;    // Розмір блока
-    // size_t size_m;
-    // char* data_m;
+    size_t capacity_m;    // Розмір блока
+    size_t size_m;
+    char* data_m;
     // Конструктор: створює стрічку із 'size' копій літери 'initial'
     my_str_t(size_t size, char initial);
 

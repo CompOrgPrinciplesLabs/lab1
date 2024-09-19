@@ -2,7 +2,7 @@
 
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 
-#include "mystring.h"
+#include "mystring.hpp"
 #include <string>
 #include <cstring>
 #include <stdexcept>
@@ -362,7 +362,7 @@ size_t my_str_t::find(const char* cstr, size_t idx) {
         throw std::out_of_range("my_str_t::find");
     }
 
-    const size_t s_len = std::strlen(cstr);
+    const size_t s_len = std::strlen(cstr) - 1;
 
     for (size_t i = idx; i < size_m - s_len; i++) {
         bool is_same = true;
