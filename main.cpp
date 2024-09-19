@@ -91,8 +91,6 @@ void testFunctionality() {
     assert(*str1.c_str()=='H');
     std::cout << "c_str() works." << std::endl;
 
-     // as you can see, the following line returns garbage instead of -1
-    std::cout << str1.find(std::string("h"), 11) << std::endl;
     assert(str1.find('e', 0)==1 && str1.find("l", 0)==2
          && str1.find(std::string("h"), 11)==-1);
     std::cout << "find() works." << std::endl;
@@ -105,7 +103,5 @@ int main() {
     testConstructors();
     testOperators();
     testFunctionality();
-    size_t dhdfb = 0;
-    const int *a = new int[5];
     return 0;
 }

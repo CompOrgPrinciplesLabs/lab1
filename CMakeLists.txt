@@ -4,7 +4,7 @@ project(lab1)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(lab1
-        mystring.h
+        mystring.hpp
         mystring.cpp
         main.cpp)
 

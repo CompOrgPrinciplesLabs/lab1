@@ -21,6 +21,12 @@ int compare_two_strings(const char* str1, const char* str2, const size_t str1_si
     // size_t l2 = std::strlen(str2);
     // const size_t min_len = std::min(str1_size, str2_size)-1;
     size_t i = 0;
+    if (str1 == NULL || str2 == NULL) {
+        return 0;
+    }
+    if (i >= strlen(str1) || i >= strlen(str2)) {
+        return strlen(str1) < strlen(str2);
+    }
     while (str1[i] != '\0' && str2[i] != '\0') {
         if (str1[i] < str2[i]) {
             return -1;  // str1 < str2
@@ -76,8 +82,8 @@ my_str_t::my_str_t(const std::string& str) {
 
 // author Veronika Bahatyr-Zakharchenko
 my_str_t::my_str_t(const my_str_t& mystr) {
-    size_m = mystr.size_m;
-    capacity_m = mystr.capacity_m;
+    size_m = mystr.size();
+    capacity_m = mystr.capacity();
     data_m = new char[capacity_m];
     std::memcpy(data_m, mystr.data_m, size_m + 1); // новий блок памʼяті; блок, з якого копіюємо; кількість бітів + терм
 }
@@ -137,6 +143,7 @@ my_str_t operator+(const my_str_t& str1, char c) {
 my_str_t& my_str_t::operator*=(const size_t num) {
     size_m = size_m * num;
     capacity_m = calc_capacity(size_m);
+    reserve(capacity_m);
     for (size_t i = 1; i < num; ++i) {
         std::memcpy(data_m + (i * size_m), data_m, size_m);
     }
@@ -189,15 +196,16 @@ const char &my_str_t::at(size_t idx) const{
 
 // author Vlad Vasylevych
 void my_str_t::reserve(size_t new_capacity) {
-    if (new_capacity < capacity_m) {
+    if (new_capacity <= capacity_m) {
         return;
     }
-    capacity_m = new_capacity;
 
-    char* new_data_m = new char[capacity_m];
+
+    char* new_data_m = new char[new_capacity+1];
     std::memcpy(new_data_m, data_m, size_m);
     delete[] data_m;
     data_m = new_data_m;
+    capacity_m = new_capacity;
 }
 
 // author Veronika Bahatyr-Zakharchenko
