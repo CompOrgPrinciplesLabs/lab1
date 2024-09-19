@@ -362,9 +362,9 @@ size_t my_str_t::find(const char* cstr, size_t idx) {
         throw std::out_of_range("my_str_t::find");
     }
 
-    const size_t s_len = std::strlen(cstr) - 1;
+    const size_t s_len = std::strlen(cstr);
 
-    for (size_t i = idx; i < size_m - s_len; i++) {
+    for (size_t i = idx; i <= size_m - s_len; i++) {
         bool is_same = true;
         for (size_t j = 0; j < s_len; j++) {
             if (data_m[i + j] == cstr[j]) {
