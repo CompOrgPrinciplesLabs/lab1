@@ -10,7 +10,7 @@
 #include <iostream>
 #include <ostream>
 
-// author Kassiia Tserkovna
+// author Veronika Bahatyr-Zakharchenko
 size_t calc_capacity(size_t size) {
     return size*2+1 ;
 }
@@ -22,7 +22,7 @@ int compare_two_strings(const char* str1, const char* str2, const size_t str1_si
     // const size_t min_len = std::min(str1_size, str2_size)-1;
     size_t i = 0;
     while (str1[i] != '\0' && str2[i] != '\0') {
-        if (str1[i] < str2[i]) {±
+        if (str1[i] < str2[i]) {
             return -1;  // str1 < str2
         }
         if (str1[i] > str2[i]) {
@@ -30,6 +30,7 @@ int compare_two_strings(const char* str1, const char* str2, const size_t str1_si
         }
         i++;
     }
+
     if (str1_size < str2_size) {
         return -1;
     }
@@ -91,6 +92,63 @@ my_str_t& my_str_t::operator=(const my_str_t& mystr) {
         std::memcpy(data_m, mystr.data_m, size_m + 1);
     }
     return *this;
+}
+
+// author Veronika Bahatyr-Zakharchenko
+my_str_t& my_str_t::operator+=(const my_str_t& str) {
+    append(str.data_m);
+    return *this;
+}
+
+// author Veronika Bahatyr-Zakharchenko
+my_str_t& my_str_t::operator+=(const char* cstr1) {
+    append((cstr1));
+    return *this;
+}
+
+// author Veronika Bahatyr-Zakharchenko
+my_str_t& my_str_t::operator+=(char c) {
+    append(c);
+    return *this;
+}
+
+// author Veronika Bahatyr-Zakharchenko
+my_str_t operator+(const my_str_t& str1, const my_str_t& str2) {
+    my_str_t result(str1);
+    result += str2;
+    return result;
+}
+
+// author Veronika Bahatyr-Zakharchenko
+my_str_t operator+(const my_str_t& str1, const char* cstr2) {
+    my_str_t result(str1);
+    result += cstr2;
+    return result;
+}
+
+// author Veronika Bahatyr-Zakharchenko
+my_str_t operator+(const my_str_t& str1, char c) {
+    my_str_t result(str1);
+    result += c;
+    return result;
+}
+
+// author Veronika Bahatyr-Zakharchenko
+my_str_t& my_str_t::operator*=(const size_t num) {
+    size_m = size_m * num;
+    capacity_m = calc_capacity(size_m);
+    for (size_t i = 1; i < num; ++i) {
+        std::memcpy(data_m + (i * size_m), data_m, size_m);
+    }
+    data_m[size_m] = '\0';
+    return *this;
+}
+
+// author Veronika Bahatyr-Zakharchenko
+my_str_t operator*(const my_str_t& str, size_t num) {
+    my_str_t result(str);
+    result *= num;
+    return result;
 }
 
 // author Veronika Bahatyr-Zakharchenko
@@ -176,6 +234,8 @@ my_str_t my_str_t::substr(size_t begin, size_t size) {
     result[size] = '\0';
     return result;
 }
+
+
 
 // author Vlad Vasylevych
 void my_str_t::shrink_to_fit() {
@@ -445,6 +505,8 @@ std::istream& operator>>(std::istream& stream, my_str_t& str){
 }
 
 
+
+
 // author Veronika Bahatyr-Zakharchenko
 bool operator==(const my_str_t& str1, const my_str_t& str2) {
     int rez = compare_two_strings(str1.data_m, str2.data_m, str1.size_m, str2.size_m);
@@ -462,6 +524,7 @@ bool operator!=(const my_str_t& str1, const my_str_t& str2) {
     }
     return true;
 }
+
 
 // author Veronika Bahatyr-Zakharchenko
 bool operator> (const my_str_t& str1, const my_str_t& str2) {
